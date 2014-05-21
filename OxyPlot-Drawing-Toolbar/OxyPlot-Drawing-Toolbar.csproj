@@ -141,6 +141,18 @@
   <ItemGroup>
     <None Include="Resources\icons\layer-shape-text.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons\border-outside.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons\cross-octagon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons\disk-black.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons\printer.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.

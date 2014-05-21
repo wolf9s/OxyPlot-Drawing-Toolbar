@@ -89,11 +89,15 @@ namespace OxyPlot_Drawing_Toolbar
                 }
 
             // Add the model to both the PlotView and the Drawing Toolbar
-            uiChartPlotView.Model = mainModel;
+            uiPlotView.Model = mainModel;
             uiDrawingToolbar.ChartModel = mainModel;
 
+            // Add saving and printing events to the drawing toolbar
+            uiDrawingToolbar.uiSaveButton.Click += uiSaveButton_OnClick;
+            uiDrawingToolbar.uiPrintButton.Click += uiPrintButton_OnClick;
+
             // And for fun, make it so you can copy the chart with Ctrl+C
-            uiChartPlotView.ActualController.BindKeyDown(OxyKey.C, OxyModifierKeys.Control,
+            uiPlotView.ActualController.BindKeyDown(OxyKey.C, OxyModifierKeys.Control,
                 new DelegatePlotCommand<OxyKeyEventArgs>(CopyChart_OnKeyDown));
         }
     }

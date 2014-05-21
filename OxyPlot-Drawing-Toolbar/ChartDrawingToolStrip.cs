@@ -20,9 +20,14 @@ namespace OxyPlotTesting
         // Chart model to draw on. Must be set! 
         public PlotModel ChartModel { get; set; }
 
-        // Toolbar Items
+        #region Toolbar Items
+
+        public ToolStripButton uiSaveButton;
+        public ToolStripButton uiPrintButton;
+
         private ToolStripButton uiSelectAnnotButton;
         private ToolStripButton uiDeleteAnnotButton;
+        private ToolStripButton uiDeleteAllAnnotsButton;
 
         private ToolStripButton uiDrawArrowButton;
         private ToolStripButton uiDrawLineButton;
@@ -58,6 +63,8 @@ namespace OxyPlotTesting
 
         private ToolStripLabel uiInfoLabel;
 
+        #endregion
+
         public ChartDrawingToolStrip()
         {
             InitializeToolBar();
@@ -68,6 +75,21 @@ namespace OxyPlotTesting
 
         private void InitializeToolBar()
         {
+            // Setup saving buttons ------------------------------------------------------------------------------------
+            uiSaveButton = new ToolStripButton
+            {
+                CheckOnClick = false,
+                Image = new Bitmap(Resources.SaveIcon),  
+                ToolTipText = "Save the chart to an image.",
+            };
+
+            uiPrintButton = new ToolStripButton
+            {
+                CheckOnClick = false,
+                Image = new Bitmap(Resources.PrintIcon),  
+                ToolTipText = "Print the chart.",
+            };
+
             // Setup selection buttons ---------------------------------------------------------------------------------
             uiSelectAnnotButton = new ToolStripButton
             {
@@ -84,6 +106,14 @@ namespace OxyPlotTesting
                 ToolTipText = "Delete annotations clicked on."
             };
             uiDeleteAnnotButton.CheckedChanged += uiDeleteAnnotButton_OnCheckedChanged;
+
+            uiDeleteAllAnnotsButton = new ToolStripButton
+            {
+                CheckOnClick = false,
+                Image = new Bitmap(Resources.DeleteAllAnnotsIcon), 
+                ToolTipText = "Delete all annotations on the chart.",
+            };
+            uiDeleteAllAnnotsButton.Click += uiDeleteAllAnnotsButton_OnClick;
 
             // Setup drawing buttons -----------------------------------------------------------------------------------
             uiDrawArrowButton = new ToolStripButton
@@ -251,8 +281,13 @@ namespace OxyPlotTesting
             };
             
             // Add everything to the toolbar ---------------------------------------------------------------------------
+            Items.Add(uiSaveButton);
+            Items.Add(uiPrintButton);
+            Items.Add(new ToolStripSeparator());
+
             Items.Add(uiSelectAnnotButton);
             Items.Add(uiDeleteAnnotButton);
+            Items.Add(uiDeleteAllAnnotsButton);
             Items.Add(new ToolStripSeparator());
 
             Items.Add(uiDrawArrowButton);
@@ -322,6 +357,8 @@ namespace OxyPlotTesting
             // Reset the toolbar items
             HideAllToolbarItems();
         }
+
+        #region Show and Hide toolbar items
 
         private void HideAllToolbarItems()
         {
@@ -463,5 +500,7 @@ namespace OxyPlotTesting
             uiSetTypeComboBox.Visible = true;
             uiSetTypeSeparator.Visible = true;
         }
+
+        #endregion
     }
 }

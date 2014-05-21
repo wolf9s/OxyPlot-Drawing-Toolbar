@@ -73,6 +73,16 @@ namespace OxyPlot_Drawing_Toolbar.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap DeleteAllAnnotsIcon {
+            get {
+                object obj = ResourceManager.GetObject("DeleteAllAnnotsIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap DeleteAnnotIcon {
             get {
                 object obj = ResourceManager.GetObject("DeleteAnnotIcon", resourceCulture);
@@ -153,6 +163,16 @@ namespace OxyPlot_Drawing_Toolbar.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap EditBorderIcon {
+            get {
+                object obj = ResourceManager.GetObject("EditBorderIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap InfoIcon {
             get {
                 object obj = ResourceManager.GetObject("InfoIcon", resourceCulture);
@@ -184,6 +204,26 @@ namespace OxyPlot_Drawing_Toolbar.Properties {
         internal static string LimitTypeVertical {
             get {
                 return ResourceManager.GetString("LimitTypeVertical", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap PrintIcon {
+            get {
+                object obj = ResourceManager.GetObject("PrintIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap SaveIcon {
+            get {
+                object obj = ResourceManager.GetObject("SaveIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         

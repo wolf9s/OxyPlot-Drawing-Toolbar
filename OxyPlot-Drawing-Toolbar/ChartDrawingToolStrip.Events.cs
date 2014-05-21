@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
+using System.Drawing.Printing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -455,6 +457,12 @@ namespace OxyPlotTesting
 
             ChartModel.InvalidatePlot(false);
             args.Handled = true;
+        }
+
+        private void uiDeleteAllAnnotsButton_OnClick(object sender, EventArgs args)
+        {
+            ChartModel.Annotations.Clear();
+            ChartModel.InvalidatePlot(false);
         }
 
         private void uiDeleteAnnotButton_OnCheckedChanged(object sender, EventArgs args)

@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.uiMainContainer = new System.Windows.Forms.ToolStripContainer();
-            this.uiChartPlotView = new OxyPlot.WindowsForms.PlotView();
+            this.uiPlotView = new OxyPlot.WindowsForms.PlotView();
             this.uiDrawingToolbar = new OxyPlotTesting.ChartDrawingToolStrip();
             this.uiMainContainer.ContentPanel.SuspendLayout();
             this.uiMainContainer.TopToolStripPanel.SuspendLayout();
@@ -41,7 +41,7 @@
             // 
             // uiMainContainer.ContentPanel
             // 
-            this.uiMainContainer.ContentPanel.Controls.Add(this.uiChartPlotView);
+            this.uiMainContainer.ContentPanel.Controls.Add(this.uiPlotView);
             this.uiMainContainer.ContentPanel.Size = new System.Drawing.Size(1264, 657);
             this.uiMainContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.uiMainContainer.Location = new System.Drawing.Point(0, 0);
@@ -54,18 +54,17 @@
             // 
             this.uiMainContainer.TopToolStripPanel.Controls.Add(this.uiDrawingToolbar);
             // 
-            // uiChartPlotView
+            // uiPlotView
             // 
-            this.uiChartPlotView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.uiChartPlotView.Location = new System.Drawing.Point(0, 0);
-            this.uiChartPlotView.Name = "uiChartPlotView";
-            this.uiChartPlotView.PanCursor = System.Windows.Forms.Cursors.Hand;
-            this.uiChartPlotView.Size = new System.Drawing.Size(1264, 657);
-            this.uiChartPlotView.TabIndex = 0;
-            this.uiChartPlotView.Text = "plot1";
-            this.uiChartPlotView.ZoomHorizontalCursor = System.Windows.Forms.Cursors.SizeWE;
-            this.uiChartPlotView.ZoomRectangleCursor = System.Windows.Forms.Cursors.SizeNWSE;
-            this.uiChartPlotView.ZoomVerticalCursor = System.Windows.Forms.Cursors.SizeNS;
+            this.uiPlotView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.uiPlotView.Location = new System.Drawing.Point(0, 0);
+            this.uiPlotView.Name = "uiPlotView";
+            this.uiPlotView.PanCursor = System.Windows.Forms.Cursors.Hand;
+            this.uiPlotView.Size = new System.Drawing.Size(1264, 657);
+            this.uiPlotView.TabIndex = 0;
+            this.uiPlotView.ZoomHorizontalCursor = System.Windows.Forms.Cursors.SizeWE;
+            this.uiPlotView.ZoomRectangleCursor = System.Windows.Forms.Cursors.SizeNWSE;
+            this.uiPlotView.ZoomVerticalCursor = System.Windows.Forms.Cursors.SizeNS;
             // 
             // uiDrawingToolbar
             // 
@@ -73,7 +72,7 @@
             this.uiDrawingToolbar.Dock = System.Windows.Forms.DockStyle.None;
             this.uiDrawingToolbar.Location = new System.Drawing.Point(3, 0);
             this.uiDrawingToolbar.Name = "uiDrawingToolbar";
-            this.uiDrawingToolbar.Size = new System.Drawing.Size(247, 25);
+            this.uiDrawingToolbar.Size = new System.Drawing.Size(322, 25);
             this.uiDrawingToolbar.TabIndex = 0;
             // 
             // MainForm
@@ -96,7 +95,7 @@
         #endregion
 
         private System.Windows.Forms.ToolStripContainer uiMainContainer;
-        private OxyPlot.WindowsForms.PlotView uiChartPlotView;
+        private OxyPlot.WindowsForms.PlotView uiPlotView;
         private OxyPlotTesting.ChartDrawingToolStrip uiDrawingToolbar;
     }
 }

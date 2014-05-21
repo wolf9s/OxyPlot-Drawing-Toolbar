@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Printing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using OxyPlot;
+using OxyPlot.WindowsForms;
 
 namespace OxyPlot_Drawing_Toolbar
 {
@@ -13,9 +15,69 @@ namespace OxyPlot_Drawing_Toolbar
     {
         private void CopyChart_OnKeyDown(IPlotView view, IController controller, OxyKeyEventArgs args)
         {
-            Bitmap chartCopy = new Bitmap(uiChartPlotView.Width, uiChartPlotView.Height);
-            uiChartPlotView.DrawToBitmap(chartCopy, new Rectangle(0, 0, uiChartPlotView.Width, uiChartPlotView.Height));
+            Bitmap chartCopy = new Bitmap(uiPlotView.Width, uiPlotView.Height);
+            uiPlotView.DrawToBitmap(chartCopy, new Rectangle(0, 0, uiPlotView.Width, uiPlotView.Height));
             Clipboard.SetImage(chartCopy);
+        }
+
+        private void PrintDoc_OnPrintPage(object sender, PrintPageEventArgs args)
+        {
+            Bitmap printBitmap = new Bitmap(uiPlotView.Width, uiPlotView.Height);
+            uiPlotView.DrawToBitmap(printBitmap, new Rectangle(0, 0, uiPlotView.Width, uiPlotView.Height));
+            args.Graphics.DrawImage(printBitmap, new Point(0, 0));
+        }
+
+        private void uiPrintButton_OnClick(object sender, EventArgs args)
+        {
+            using (PrintDialog d = new PrintDialog())
+            {
+                PrintDocument printDoc = new PrintDocument {DefaultPageSettings = {Landscape = true}};
+                printDoc.PrintPage += PrintDoc_OnPrintPage;
+
+                d.AllowPrintToFile = true;
+                d.AllowSomePages = true;
+                d.Document = printDoc;
+                d.ShowHelp = true;
+
+                if (d.ShowDialog() == DialogResult.OK)
+                    printDoc.Print();
+            }
+        }
+
+        private void uiSaveButton_OnClick(object sender, EventArgs args)
+        {
+            using (SaveFileDialog d = new SaveFileDialog())
+            {
+                d.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
+                d.FileName = "ChartNameHere";
+                d.Filter = @"Bitmap (*.bmp)|*.bmp|Jpg (*.jpg)|*.jpg|Png (*.png)|*.png";
+                d.FilterIndex = 4;
+                d.DefaultExt = "png";
+                d.RestoreDirectory = true;
+
+                if (d.ShowDialog() != DialogResult.OK || string.IsNullOrEmpty(d.FileName))
+                    return;
+
+                Bitmap saveChart = new Bitmap(uiPlotView.Width, uiPlotView.Height);
+                uiPlotView.DrawToBitmap(saveChart, new Rectangle(0, 0, uiPlotView.Width, uiPlotView.Height));
+
+                switch (d.FilterIndex)
+                {
+                    case 1:
+                        saveChart.Save(d.FileName, System.Drawing.Imaging.ImageFormat.Bmp);
+                        break;
+
+                    case 2:
+                        saveChart.Save(d.FileName, System.Drawing.Imaging.ImageFormat.Jpeg);
+                        break;
+
+                    case 3:
+                        // Can also be done using OxyPlots built in png exporter:
+                        //PngExporter(uiPlotView.Model, d.FileName, uiPlotView.Width, uiPlotView.Height);
+                        saveChart.Save(d.FileName, System.Drawing.Imaging.ImageFormat.Png);
+                        break;
+                }
+            }
         }
     }
 }
