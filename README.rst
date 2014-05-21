@@ -18,5 +18,10 @@ open to being told I'm doing it wrong, as it's just another reason to learn bett
 Also! All icons used on this toolbar are from the great Fugue Icons pack by Yusuke Kamiyamane! You can find it here:
 `fugue icons`_
 
+Requirements
+------------
+
+This was created in VS2013 and .Net 4.5. You'll need to grab the OxyPlot.Core and OxyPlot.WinForms packages yourself.
+
 .. _OxyPlot: http://oxyplot.org/
 .. _fugue icons: http://p.yusukekamiyamane.com/

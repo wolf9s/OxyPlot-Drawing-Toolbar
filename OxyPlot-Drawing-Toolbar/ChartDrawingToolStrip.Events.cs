@@ -47,6 +47,7 @@ namespace OxyPlotTesting
             _tempAnnot = new ArrowAnnotation
             {
                 Color = HoverColor,
+                EndPoint = xAxis.InverseTransform(args.Position.X, args.Position.Y, yAxis),
                 StartPoint = xAxis.InverseTransform(args.Position.X, args.Position.Y, yAxis),
             };
 
