@@ -6,9 +6,9 @@ Description
 -----------
 
 An example of using mouse events and annotations together to create a drawing toolbar with `OxyPlot`_. Feel free to use
-any way you'd like! It was designed mostly because I wanted to add a drawing feature to a graph display on an in house
-application where I work. This was mainly so that they could draw on a chart without exporting it to an image or
-printing it first, with the added bonus of being able to display info below series if they want.
+any way you'd like! It was designed mostly because I wanted to add a drawing feature to the chart display of an in-house
+application at work (and for fun too), mainly so that the users could draw on the chart with added features like
+aligning text and drawing above/below the series without having to export or print it first.
 
 Please let me know if you find any issues, or even if there's a better way of doing something in the code~! I'm always
 open to being told I'm doing it wrong, as it's just another reason to learn better ways to improve how I code =). Also,
