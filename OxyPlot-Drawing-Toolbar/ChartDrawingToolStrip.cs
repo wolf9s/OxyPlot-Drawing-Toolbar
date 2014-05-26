@@ -75,7 +75,7 @@ namespace OxyPlotTesting
 
         private void InitializeToolBar()
         {
-            // Setup saving buttons ------------------------------------------------------------------------------------
+            // Setup saving buttons ----------------------------------------------------------------
             uiSaveButton = new ToolStripButton
             {
                 CheckOnClick = false,
@@ -90,7 +90,7 @@ namespace OxyPlotTesting
                 ToolTipText = "Print the chart.",
             };
 
-            // Setup selection buttons ---------------------------------------------------------------------------------
+            // Setup selection buttons -------------------------------------------------------------
             uiSelectAnnotButton = new ToolStripButton
             {
                 CheckOnClick = true,
@@ -115,7 +115,7 @@ namespace OxyPlotTesting
             };
             uiDeleteAllAnnotsButton.Click += uiDeleteAllAnnotsButton_OnClick;
 
-            // Setup drawing buttons -----------------------------------------------------------------------------------
+            // Setup drawing buttons ---------------------------------------------------------------
             uiDrawArrowButton = new ToolStripButton
             {
                 CheckOnClick = true,
@@ -172,7 +172,7 @@ namespace OxyPlotTesting
             };
             uiDrawTextButton.CheckedChanged += uiDrawTextButton_OnCheckedChanged;
 
-            // Setup layer selection -----------------------------------------------------------------------------------
+            // Setup layer selection ---------------------------------------------------------------
             uiSetLayerLabel = new ToolStripLabel("Layer:");
             uiLayerSeparator = new ToolStripSeparator();
 
@@ -189,7 +189,7 @@ namespace OxyPlotTesting
                 uiSetLayerComboBox.Items.Add(al);
             uiSetLayerComboBox.SelectedIndexChanged += uiSetLayerComboBox_OnSelectedIndexChanged;
 
-            // Setup line or shape type adjustment items ---------------------------------------------------------------
+            // Setup line or shape type adjustment items -------------------------------------------
             uiSetTypeLabel = new ToolStripLabel("Type:");
             uiSetTypeSeparator = new ToolStripSeparator();
 
@@ -202,7 +202,7 @@ namespace OxyPlotTesting
             uiSetTypeComboBox.Items.Add(Resources.LimitTypeVertical);
             uiSetTypeComboBox.Items.Add(Resources.LimitTypeHorizontal);
 
-            // Setup line adjustment items -----------------------------------------------------------------------------
+            // Setup line adjustment items ---------------------------------------------------------
             uiSetLineLabel = new ToolStripLabel("Line:");
             uiSetLineSeparator = new ToolStripSeparator();
 
@@ -217,7 +217,8 @@ namespace OxyPlotTesting
             };
             foreach (LineStyle ls in Enum.GetValues(typeof (LineStyle)))
                 uiSetLineStyleComboBox.Items.Add(ls);
-            uiSetLineStyleComboBox.SelectedIndexChanged += uiSetLineStyleComboBox_OnSelectedIndexChanged;
+            uiSetLineStyleComboBox.SelectedIndexChanged +=
+                uiSetLineStyleComboBox_OnSelectedIndexChanged;
 
             uiSetLineThicknessTextBox = new ToolStripTextBox
             {
@@ -243,7 +244,7 @@ namespace OxyPlotTesting
             };
             uiSetLineAlphaTextBox.KeyDown += uiSetLineAlphaTextBox_OnKeyDown;
 
-            // Setup fill color adjustment items -----------------------------------------------------------------------
+            // Setup fill color adjustment items ---------------------------------------------------
             uiSetFillLabel = new ToolStripLabel("Fill:");
             uiSetFillSeparator = new ToolStripSeparator();
 
@@ -264,23 +265,24 @@ namespace OxyPlotTesting
             };
             uiSetFillAlphaTextBox.KeyDown += uiSetFillAlphaTextBox_OnKeyDown;
 
-            // Setup text adjustment items -----------------------------------------------------------------------------
+            // Setup text adjustment items ---------------------------------------------------------
             uiSetTextLabel = new ToolStripLabel("Text:");
             uiSetTextSeparator = new ToolStripSeparator();
 
             uiSetTextTextBox = new ToolStripTextBox {ToolTipText = "Set annotation text."};
             uiSetTextTextBox.KeyDown += uiSetTextTextBox_OnKeyDown;
 
-            // Setup information tooltip -------------------------------------------------------------------------------
+            // Setup information tooltip -----------------------------------------------------------
             uiInfoLabel = new ToolStripLabel
             {
                 Image = new Bitmap(Resources.InfoIcon),
                 ToolTipText =
-                    "You can copy the chart to the clipboard by clicking on it and pressing Ctrl+C!\n" +
-                    @"The icons used in this toolbar are from the Fugue Icon set: http://p.yusukekamiyamane.com/"
+                    "You can use Ctrl+C to copy the chart to the clipboard!\n" +
+                    "The icons used in this toolbar are from the Fugue Icon set:" +
+                    @"http://p.yusukekamiyamane.com/"
             };
             
-            // Add everything to the toolbar ---------------------------------------------------------------------------
+            // Add everything to the toolbar -------------------------------------------------------
             Items.Add(uiSaveButton);
             Items.Add(uiPrintButton);
             Items.Add(new ToolStripSeparator());
@@ -330,16 +332,21 @@ namespace OxyPlotTesting
 
         private void ResetItemsToggle(ToolStripButton clickedButton)
         {
-            foreach (ToolStripButton btn in Items.OfType<ToolStripButton>().Where(c => c != clickedButton))
+            foreach (
+                ToolStripButton btn in
+                    Items.OfType<ToolStripButton>().Where(c => c != clickedButton))
                 btn.Checked = false;
         }
 
         private void RestoreDefaultToolbarSetup()
         {
-            uiSetLayerComboBox.SelectedIndex = uiSetLayerComboBox.Items.IndexOf(AnnotationLayer.BelowSeries);
-            uiSetTypeComboBox.SelectedIndex = uiSetTypeComboBox.Items.IndexOf(Resources.LimitTypeNone);
+            uiSetLayerComboBox.SelectedIndex =
+                uiSetLayerComboBox.Items.IndexOf(AnnotationLayer.BelowSeries);
+            uiSetTypeComboBox.SelectedIndex =
+                uiSetTypeComboBox.Items.IndexOf(Resources.LimitTypeNone);
 
-            uiSetLineStyleComboBox.SelectedIndex = uiSetLineStyleComboBox.Items.IndexOf(LineStyle.Solid);
+            uiSetLineStyleComboBox.SelectedIndex =
+                uiSetLineStyleComboBox.Items.IndexOf(LineStyle.Solid);
             uiSetLineThicknessTextBox.Text = "2.00";
             uiSetLineColorButton.BackColor = Color.Black;
             uiSetLineAlphaTextBox.Text = "255";
@@ -358,7 +365,7 @@ namespace OxyPlotTesting
             HideAllToolbarItems();
         }
 
-        #region Show and Hide toolbar items
+        #region Show and Hide toolbar items (want a better way of doing this, feels messy)
 
         private void HideAllToolbarItems()
         {

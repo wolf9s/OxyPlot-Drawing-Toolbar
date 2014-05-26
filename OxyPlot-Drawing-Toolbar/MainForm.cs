@@ -77,13 +77,15 @@ namespace OxyPlot_Drawing_Toolbar
 
                     case 1:
                         mainModel.Series.Add(
-                            new FunctionSeries(x => Math.Sin((x + s) / 4) * Math.Acos(Math.Sin(x + s)),
-                                MinimumX, MaximumX, NumPoints) { YAxisKey = "yAxis" });
+                            new FunctionSeries(
+                                x => Math.Sin((x + s) / 4) * Math.Acos(Math.Sin(x + s)), MinimumX,
+                                MaximumX, NumPoints) {YAxisKey = "yAxis"});
                         break;
 
                     case 2:
                         mainModel.Series.Add(
-                            new FunctionSeries(x => Math.Sin(2 * Math.Cos(2 * Math.Sin(2 * Math.Cos(x + s)))),
+                            new FunctionSeries(
+                                x => Math.Sin(2 * Math.Cos(2 * Math.Sin(2 * Math.Cos(x + s)))),
                                 MinimumX, MaximumX, NumPoints) {YAxisKey = "yAxis"});
                         break;
                 }
