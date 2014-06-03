@@ -34,5 +34,5 @@ Screenshot!
 Here's a screenshot of a bunch of annotations drawn onto the graph and the annotation selection tool
 in use:
 
-.. image:: ss-selectannot.png
+.. image:: ss-messydrawingtoolbar.png
     :width: 80pt

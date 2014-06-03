@@ -66,14 +66,14 @@ namespace OxyPlot_Drawing_Toolbar
             uiSaveButton = new ToolStripButton
             {
                 CheckOnClick = false,
-                Image = new Bitmap(Icons.SaveIcon),
+                Image = new Bitmap(Icons.Save),
                 ToolTipText = ToolTips.SaveChart,
             };
 
             uiPrintButton = new ToolStripButton
             {
                 CheckOnClick = false,
-                Image = new Bitmap(Icons.PrintIcon),
+                Image = new Bitmap(Icons.Print),
                 ToolTipText = ToolTips.PrintChart,
             };
 
@@ -81,7 +81,7 @@ namespace OxyPlot_Drawing_Toolbar
             uiSelectAnnotButton = new ToolStripButton
             {
                 CheckOnClick = true,
-                Image = new Bitmap(Icons.SelectAnnotIcon),
+                Image = new Bitmap(Icons.SelectAnnot),
                 ToolTipText = ToolTips.SelectAnnot,
             };
             uiSelectAnnotButton.CheckedChanged += uiSelectAnnotButton_OnCheckedChanged;
@@ -89,7 +89,7 @@ namespace OxyPlot_Drawing_Toolbar
             uiDeleteAnnotButton = new ToolStripButton
             {
                 CheckOnClick = true,
-                Image = new Bitmap(Icons.DeleteAnnotIcon),
+                Image = new Bitmap(Icons.DeleteAnnot),
                 ToolTipText = ToolTips.DeleteAnnot
             };
             uiDeleteAnnotButton.CheckedChanged += uiDeleteAnnotButton_OnCheckedChanged;
@@ -97,7 +97,7 @@ namespace OxyPlot_Drawing_Toolbar
             uiDeleteAllAnnotsButton = new ToolStripButton
             {
                 CheckOnClick = false,
-                Image = new Bitmap(Icons.DeleteAllAnnotsIcon),
+                Image = new Bitmap(Icons.DeleteAllAnnots),
                 ToolTipText = ToolTips.DeleteAllAnnots,
             };
             uiDeleteAllAnnotsButton.Click += uiDeleteAllAnnotsButton_OnClick;
@@ -106,7 +106,7 @@ namespace OxyPlot_Drawing_Toolbar
             uiDrawArrowButton = new ToolStripButton
             {
                 CheckOnClick = true,
-                Image = new Bitmap(Icons.DrawArrowIcon),
+                Image = new Bitmap(Icons.DrawArrow),
                 ToolTipText = ToolTips.DrawArrow
             };
             uiDrawArrowButton.CheckedChanged += uiDrawArrowButton_OnCheckedChanged;
@@ -114,7 +114,7 @@ namespace OxyPlot_Drawing_Toolbar
             uiDrawLineButton = new ToolStripButton
             {
                 CheckOnClick = true,
-                Image = new Bitmap(Icons.DrawLineIcon),
+                Image = new Bitmap(Icons.DrawLine),
                 ToolTipText = ToolTips.DrawLine
             };
             uiDrawLineButton.CheckedChanged += uiDrawLineButton_OnCheckedChanged;
@@ -122,7 +122,7 @@ namespace OxyPlot_Drawing_Toolbar
             uiDrawPolylineButton = new ToolStripButton
             {
                 CheckOnClick = true,
-                Image = new Bitmap(Icons.DrawPolylineIcon),
+                Image = new Bitmap(Icons.DrawPolyline),
                 ToolTipText = ToolTips.DrawPolyline
             };
             uiDrawPolylineButton.CheckedChanged += uiDrawPolylineButton_OnCheckedChanged;
@@ -130,7 +130,7 @@ namespace OxyPlot_Drawing_Toolbar
             uiDrawRectangleButton = new ToolStripButton
             {
                 CheckOnClick = true,
-                Image = new Bitmap(Icons.DrawRectangleIcon),
+                Image = new Bitmap(Icons.DrawRectangle),
                 ToolTipText = ToolTips.DrawRectangle
             };
             uiDrawRectangleButton.CheckedChanged += uiDrawRectangleButton_OnCheckedChanged;
@@ -138,7 +138,7 @@ namespace OxyPlot_Drawing_Toolbar
             uiDrawEllipseButton = new ToolStripButton
             {
                 CheckOnClick = true,
-                Image = new Bitmap(Icons.DrawEllipseIcon),
+                Image = new Bitmap(Icons.DrawEllipse),
                 ToolTipText = ToolTips.DrawEllipse
             };
             uiDrawEllipseButton.CheckedChanged += uiDrawEllipseButton_OnCheckedChanged;
@@ -146,7 +146,7 @@ namespace OxyPlot_Drawing_Toolbar
             uiDrawPolygonButton = new ToolStripButton
             {
                 CheckOnClick = true,
-                Image = new Bitmap(Icons.DrawPolygonIcon),
+                Image = new Bitmap(Icons.DrawPolygon),
                 ToolTipText = ToolTips.DrawPolygon
             };
             uiDrawPolygonButton.CheckedChanged += uiDrawPolygonButton_OnCheckedChanged;
@@ -154,7 +154,7 @@ namespace OxyPlot_Drawing_Toolbar
             uiDrawTextButton = new ToolStripButton
             {
                 CheckOnClick = true,
-                Image = new Bitmap(Icons.DrawTextIcon),
+                Image = new Bitmap(Icons.DrawText),
                 ToolTipText = ToolTips.DrawText
             };
             uiDrawTextButton.CheckedChanged += uiDrawTextButton_OnCheckedChanged;
@@ -261,7 +261,7 @@ namespace OxyPlot_Drawing_Toolbar
             // Setup information tooltip -----------------------------------------------------------
             uiInfoLabel = new ToolStripLabel
             {
-                Image = new Bitmap(Icons.InfoIcon),
+                Image = new Bitmap(Icons.Info),
                 ToolTipText =
                     ToolTips.Info
             };

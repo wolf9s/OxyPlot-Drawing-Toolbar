@@ -63,9 +63,9 @@ namespace OxyPlot_Drawing_Toolbar {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap AddImageIcon {
+        internal static System.Drawing.Bitmap AddImage {
             get {
-                object obj = ResourceManager.GetObject("AddImageIcon", resourceCulture);
+                object obj = ResourceManager.GetObject("AddImage", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -73,9 +73,9 @@ namespace OxyPlot_Drawing_Toolbar {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap DeleteAllAnnotsIcon {
+        internal static System.Drawing.Bitmap DeleteAllAnnots {
             get {
-                object obj = ResourceManager.GetObject("DeleteAllAnnotsIcon", resourceCulture);
+                object obj = ResourceManager.GetObject("DeleteAllAnnots", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -83,9 +83,9 @@ namespace OxyPlot_Drawing_Toolbar {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap DeleteAnnotIcon {
+        internal static System.Drawing.Bitmap DeleteAnnot {
             get {
-                object obj = ResourceManager.GetObject("DeleteAnnotIcon", resourceCulture);
+                object obj = ResourceManager.GetObject("DeleteAnnot", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -93,9 +93,9 @@ namespace OxyPlot_Drawing_Toolbar {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap DrawArrowIcon {
+        internal static System.Drawing.Bitmap DrawArrow {
             get {
-                object obj = ResourceManager.GetObject("DrawArrowIcon", resourceCulture);
+                object obj = ResourceManager.GetObject("DrawArrow", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -103,9 +103,9 @@ namespace OxyPlot_Drawing_Toolbar {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap DrawEllipseIcon {
+        internal static System.Drawing.Bitmap DrawEllipse {
             get {
-                object obj = ResourceManager.GetObject("DrawEllipseIcon", resourceCulture);
+                object obj = ResourceManager.GetObject("DrawEllipse", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -113,9 +113,9 @@ namespace OxyPlot_Drawing_Toolbar {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap DrawLineIcon {
+        internal static System.Drawing.Bitmap DrawLine {
             get {
-                object obj = ResourceManager.GetObject("DrawLineIcon", resourceCulture);
+                object obj = ResourceManager.GetObject("DrawLine", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -123,9 +123,9 @@ namespace OxyPlot_Drawing_Toolbar {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap DrawPolygonIcon {
+        internal static System.Drawing.Bitmap DrawPolygon {
             get {
-                object obj = ResourceManager.GetObject("DrawPolygonIcon", resourceCulture);
+                object obj = ResourceManager.GetObject("DrawPolygon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -133,9 +133,9 @@ namespace OxyPlot_Drawing_Toolbar {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap DrawPolylineIcon {
+        internal static System.Drawing.Bitmap DrawPolyline {
             get {
-                object obj = ResourceManager.GetObject("DrawPolylineIcon", resourceCulture);
+                object obj = ResourceManager.GetObject("DrawPolyline", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -143,9 +143,9 @@ namespace OxyPlot_Drawing_Toolbar {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap DrawRectangleIcon {
+        internal static System.Drawing.Bitmap DrawRectangle {
             get {
-                object obj = ResourceManager.GetObject("DrawRectangleIcon", resourceCulture);
+                object obj = ResourceManager.GetObject("DrawRectangle", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -153,9 +153,9 @@ namespace OxyPlot_Drawing_Toolbar {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap DrawTextIcon {
+        internal static System.Drawing.Bitmap DrawText {
             get {
-                object obj = ResourceManager.GetObject("DrawTextIcon", resourceCulture);
+                object obj = ResourceManager.GetObject("DrawText", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -163,9 +163,9 @@ namespace OxyPlot_Drawing_Toolbar {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap EditBorderIcon {
+        internal static System.Drawing.Bitmap EditBorder {
             get {
-                object obj = ResourceManager.GetObject("EditBorderIcon", resourceCulture);
+                object obj = ResourceManager.GetObject("EditBorder", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -173,9 +173,9 @@ namespace OxyPlot_Drawing_Toolbar {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap InfoIcon {
+        internal static System.Drawing.Bitmap Info {
             get {
-                object obj = ResourceManager.GetObject("InfoIcon", resourceCulture);
+                object obj = ResourceManager.GetObject("Info", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -183,9 +183,9 @@ namespace OxyPlot_Drawing_Toolbar {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap PrintIcon {
+        internal static System.Drawing.Bitmap Print {
             get {
-                object obj = ResourceManager.GetObject("PrintIcon", resourceCulture);
+                object obj = ResourceManager.GetObject("Print", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -193,9 +193,9 @@ namespace OxyPlot_Drawing_Toolbar {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap SaveIcon {
+        internal static System.Drawing.Bitmap Save {
             get {
-                object obj = ResourceManager.GetObject("SaveIcon", resourceCulture);
+                object obj = ResourceManager.GetObject("Save", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -203,9 +203,9 @@ namespace OxyPlot_Drawing_Toolbar {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap SelectAnnotIcon {
+        internal static System.Drawing.Bitmap SelectAnnot {
             get {
-                object obj = ResourceManager.GetObject("SelectAnnotIcon", resourceCulture);
+                object obj = ResourceManager.GetObject("SelectAnnot", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
