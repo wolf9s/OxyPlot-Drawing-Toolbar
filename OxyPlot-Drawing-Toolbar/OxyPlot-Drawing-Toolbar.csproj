@@ -60,6 +60,11 @@
       <DependentUpon>ChartDrawingToolStrip.cs</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Icons.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Icons.resx</DependentUpon>
+    </Compile>
     <Compile Include="InputTextDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -78,6 +83,15 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ToolTips.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ToolTips.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Icons.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Icons.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="InputTextDialog.resx">
       <DependentUpon>InputTextDialog.cs</DependentUpon>
     </EmbeddedResource>
@@ -94,6 +108,10 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="ToolTips.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ToolTips.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -152,6 +170,51 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\icons\printer.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons\image1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons\cross-octagon1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons\cross1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons\arrow-1351.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons\layer-shape-ellipse1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons\layer-shape-line1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons\layer-shape-polygon1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons\layer-shape-polyline1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons\layer-shape1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons\layer-shape-text1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons\border-outside1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons\information1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons\printer1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons\disk-black1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons\cursor1.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

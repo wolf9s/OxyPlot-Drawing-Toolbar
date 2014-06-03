@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Drawing;
-using System.Drawing.Printing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using OxyPlot;
@@ -13,19 +7,17 @@ using OxyPlot.Annotations;
 using OxyPlot.Axes;
 using OxyPlot.WindowsForms;
 
-using OxyPlot_Drawing_Toolbar.Properties;
-
-namespace OxyPlotTesting
+namespace OxyPlot_Drawing_Toolbar
 {
     sealed partial class ChartDrawingToolStrip
     {
-        // Setup used when displaying annotation to user before drawn
+        /* Setup used when displaying annotation to user before drawn. */
         private const int HoverAlpha = 150;
-        private readonly OxyColor HoverColor = OxyColor.FromAColor(HoverAlpha, OxyColors.Cyan);
         private const LineStyle HoverLineStyle = LineStyle.Dash;
         private const int HoverLineThickness = 4;
+        private readonly OxyColor HoverColor = OxyColor.FromAColor(HoverAlpha, OxyColors.Cyan);
 
-        // Annotation used to draw on the chart
+        /* Annotation used to draw on the chart. */
         private Annotation _tempAnnot;
 
         private void DeleteAnnot_OnMouseDown(object sender, OxyMouseDownEventArgs args)
@@ -66,8 +58,9 @@ namespace OxyPlotTesting
             Axis xAxis = ChartModel.Axes.First(a => a.IsHorizontal());
             Axis yAxis = ChartModel.Axes.First(a => a.IsVertical());
 
-            ((ArrowAnnotation) _tempAnnot).EndPoint = xAxis.InverseTransform(args.Position.X,
-                args.Position.Y, yAxis);
+            var annot = _tempAnnot as ArrowAnnotation;
+            if (annot != null)
+                annot.EndPoint = xAxis.InverseTransform(args.Position.X, args.Position.Y, yAxis);
 
             ChartModel.InvalidatePlot(false);
             args.Handled = true;
@@ -78,15 +71,16 @@ namespace OxyPlotTesting
             if (_tempAnnot == null)
                 return;
 
-            ((ArrowAnnotation) _tempAnnot).Color =
-                OxyColor.FromAColor(Convert.ToByte(uiSetLineAlphaTextBox.Text),
-                    uiSetLineColorButton.BackColor.ToOxyColor());
-            _tempAnnot.Layer = (AnnotationLayer) uiSetLayerComboBox.SelectedItem;
-            ((ArrowAnnotation) _tempAnnot).LineStyle =
-                (LineStyle) uiSetLineStyleComboBox.SelectedItem;
-            ((ArrowAnnotation) _tempAnnot).StrokeThickness =
-                Convert.ToDouble(uiSetLineThicknessTextBox.Text);
-            ((ArrowAnnotation) _tempAnnot).Text = uiSetTextTextBox.Text;
+            var annot = _tempAnnot as ArrowAnnotation;
+            if (annot != null)
+            {
+                annot.Color = OxyColor.FromAColor(byte.Parse(uiSetLineAlphaTextBox.Text),
+                                                  uiSetLineColorButton.BackColor.ToOxyColor());
+                annot.Layer = (AnnotationLayer) uiSetLayerComboBox.SelectedItem;
+                annot.LineStyle = (LineStyle) uiSetLineStyleComboBox.SelectedItem;
+                annot.StrokeThickness = double.Parse(uiSetLineThicknessTextBox.Text);
+                annot.Text = uiSetTextTextBox.Text;
+            }
 
             _tempAnnot = null;
             ChartModel.InvalidatePlot(false);
@@ -124,10 +118,14 @@ namespace OxyPlotTesting
             Axis xAxis = ChartModel.Axes.First(a => a.IsHorizontal());
             Axis yAxis = ChartModel.Axes.First(a => a.IsVertical());
 
-            ((EllipseAnnotation) _tempAnnot).Width = (xAxis.InverseTransform(args.Position.X) -
-                                                      ((EllipseAnnotation) _tempAnnot).X) * 2;
-            ((EllipseAnnotation) _tempAnnot).Height = (yAxis.InverseTransform(args.Position.Y) -
-                                                       ((EllipseAnnotation) _tempAnnot).Y) * 2;
+            var annot = _tempAnnot as EllipseAnnotation;
+            if (annot != null)
+            {
+                annot.Width = (xAxis.InverseTransform(args.Position.X)
+                               - ((EllipseAnnotation) _tempAnnot).X) * 2;
+                annot.Height = (yAxis.InverseTransform(args.Position.Y)
+                                - ((EllipseAnnotation) _tempAnnot).Y) * 2;
+            }
 
             ChartModel.InvalidatePlot(false);
             args.Handled = true;
@@ -138,11 +136,14 @@ namespace OxyPlotTesting
             if (_tempAnnot == null)
                 return;
 
-            ((EllipseAnnotation) _tempAnnot).Fill =
-                OxyColor.FromAColor(Convert.ToByte(uiSetFillAlphaTextBox.Text),
-                    uiSetFillColorButton.BackColor.ToOxyColor());
-            _tempAnnot.Layer = (AnnotationLayer) uiSetLayerComboBox.SelectedItem;
-            ((EllipseAnnotation) _tempAnnot).Text = uiSetTextTextBox.Text;
+            var annot = _tempAnnot as EllipseAnnotation;
+            if (annot != null)
+            {
+                annot.Fill = OxyColor.FromAColor(byte.Parse(uiSetFillAlphaTextBox.Text),
+                                                 uiSetFillColorButton.BackColor.ToOxyColor());
+                annot.Layer = (AnnotationLayer) uiSetLayerComboBox.SelectedItem;
+                annot.Text = uiSetTextTextBox.Text;
+            }
 
             _tempAnnot = null;
             ChartModel.InvalidatePlot(false);
@@ -163,26 +164,27 @@ namespace OxyPlotTesting
 
             Axis xAxis = ChartModel.Axes.First(a => a.IsHorizontal());
             Axis yAxis = ChartModel.Axes.First(a => a.IsVertical());
-            string type = (string) uiSetTypeComboBox.SelectedItem;
+            var type = (LimitType) uiSetTypeComboBox.SelectedItem;
 
-            if (type == Resources.LimitTypeNone)
+            var annot = _tempAnnot as LineAnnotation;
+            if (type == LimitType.None)
             {
-                ((LineAnnotation) _tempAnnot).X = xAxis.InverseTransform(args.Position.X);
-                ((LineAnnotation) _tempAnnot).Y = yAxis.InverseTransform(args.Position.Y);
-                ((LineAnnotation) _tempAnnot).Intercept = yAxis.InverseTransform(args.Position.Y);
-                ((LineAnnotation) _tempAnnot).Slope = 0;
+                annot.X = xAxis.InverseTransform(args.Position.X);
+                annot.Y = yAxis.InverseTransform(args.Position.Y);
+                annot.Intercept = yAxis.InverseTransform(args.Position.Y);
+                annot.Slope = 0;
             }
-            else if (type == Resources.LimitTypeVertical)
+            else if (type == LimitType.Vertical)
             {
-                ((LineAnnotation) _tempAnnot).Type = LineAnnotationType.Vertical;
-                ((LineAnnotation) _tempAnnot).X = xAxis.InverseTransform(args.Position.X);
+                annot.Type = LineAnnotationType.Vertical;
+                annot.X = xAxis.InverseTransform(args.Position.X);
             }
-            else if (type == Resources.LimitTypeHorizontal)
+            else if (type == LimitType.Horizontal)
             {
-                ((LineAnnotation) _tempAnnot).Type = LineAnnotationType.Horizontal;
-                ((LineAnnotation) _tempAnnot).Y = yAxis.InverseTransform(args.Position.Y);
+                annot.Type = LineAnnotationType.Horizontal;
+                annot.Y = yAxis.InverseTransform(args.Position.Y);
             }
-            
+
             ChartModel.Annotations.Add(_tempAnnot);
             ChartModel.InvalidatePlot(false);
             args.Handled = true;
@@ -195,23 +197,27 @@ namespace OxyPlotTesting
 
             Axis xAxis = ChartModel.Axes.First(a => a.IsHorizontal());
             Axis yAxis = ChartModel.Axes.First(a => a.IsVertical());
-            string type = (string) uiSetTypeComboBox.SelectedItem;
+            var type = (LimitType) uiSetTypeComboBox.SelectedItem;
 
-            if (type == Resources.LimitTypeNone)
+            var annot = _tempAnnot as LineAnnotation;
+            if (annot != null)
             {
-                double x1 = ((LineAnnotation) _tempAnnot).X;
-                double x2 = xAxis.InverseTransform(args.Position.X);
-                double y1 = ((LineAnnotation) _tempAnnot).Y;
-                double y2 = yAxis.InverseTransform(args.Position.Y);
-                double slope = (y2 - y1) / (x2 - x1);
+                if (type == LimitType.None)
+                {
+                    double x1 = annot.X;
+                    double x2 = xAxis.InverseTransform(args.Position.X);
+                    double y1 = annot.Y;
+                    double y2 = yAxis.InverseTransform(args.Position.Y);
+                    double slope = (y2 - y1) / (x2 - x1);
 
-                ((LineAnnotation) _tempAnnot).Intercept = y2 - slope * x2;
-                ((LineAnnotation) _tempAnnot).Slope = slope;
+                    annot.Intercept = y2 - slope * x2;
+                    annot.Slope = slope;
+                }
+                else if (type == LimitType.Vertical)
+                    annot.X = xAxis.InverseTransform(args.Position.X);
+                else if (type == LimitType.Horizontal)
+                    annot.Y = yAxis.InverseTransform(args.Position.Y);
             }
-            else if (type == Resources.LimitTypeVertical)
-                ((LineAnnotation) _tempAnnot).X = xAxis.InverseTransform(args.Position.X);
-            else if (type == Resources.LimitTypeHorizontal)
-                ((LineAnnotation) _tempAnnot).Y = yAxis.InverseTransform(args.Position.Y);
 
             ChartModel.InvalidatePlot(false);
             args.Handled = true;
@@ -222,15 +228,16 @@ namespace OxyPlotTesting
             if (_tempAnnot == null)
                 return;
 
-            ((LineAnnotation) _tempAnnot).Color =
-                OxyColor.FromAColor(Convert.ToByte(uiSetLineAlphaTextBox.Text),
-                    uiSetLineColorButton.BackColor.ToOxyColor());
-            _tempAnnot.Layer = (AnnotationLayer) uiSetLayerComboBox.SelectedItem;
-            ((LineAnnotation) _tempAnnot).LineStyle =
-                (LineStyle) uiSetLineStyleComboBox.SelectedItem;
-            ((LineAnnotation) _tempAnnot).StrokeThickness =
-                Convert.ToDouble(uiSetLineThicknessTextBox.Text);
-            ((LineAnnotation) _tempAnnot).Text = uiSetTextTextBox.Text;
+            var annot = _tempAnnot as LineAnnotation;
+            if (annot != null)
+            {
+                annot.Color = OxyColor.FromAColor(byte.Parse(uiSetLineAlphaTextBox.Text),
+                                                  uiSetLineColorButton.BackColor.ToOxyColor());
+                annot.Layer = (AnnotationLayer) uiSetLayerComboBox.SelectedItem;
+                annot.LineStyle = (LineStyle) uiSetLineStyleComboBox.SelectedItem;
+                annot.StrokeThickness = double.Parse(uiSetLineThicknessTextBox.Text);
+                annot.Text = uiSetTextTextBox.Text;
+            }
 
             _tempAnnot = null;
             ChartModel.InvalidatePlot(false);
@@ -259,12 +266,11 @@ namespace OxyPlotTesting
             if (_tempAnnot == null)
                 return;
 
-            PolygonAnnotation polyAnnot = new PolygonAnnotation
+            var polyAnnot = new PolygonAnnotation
             {
                 Color = OxyColors.Undefined,
-                Fill =
-                    OxyColor.FromAColor(Convert.ToByte(uiSetFillAlphaTextBox.Text),
-                        uiSetFillColorButton.BackColor.ToOxyColor()),
+                Fill = OxyColor.FromAColor(byte.Parse(uiSetFillAlphaTextBox.Text),
+                                           uiSetFillColorButton.BackColor.ToOxyColor()),
                 Layer = (AnnotationLayer) uiSetLayerComboBox.SelectedItem,
                 LineStyle = LineStyle.None,
                 StrokeThickness = 0,
@@ -294,8 +300,10 @@ namespace OxyPlotTesting
 
             Axis xAxis = ChartModel.Axes.First(a => a.IsHorizontal());
             Axis yAxis = ChartModel.Axes.First(a => a.IsVertical());
+
             ((PolylineAnnotation) _tempAnnot).Points.Add(xAxis.InverseTransform(args.Position.X,
-                args.Position.Y, yAxis));
+                                                                                args.Position.Y,
+                                                                                yAxis));
 
             ChartModel.Annotations.Add(_tempAnnot);
             ChartModel.InvalidatePlot(false);
@@ -310,7 +318,8 @@ namespace OxyPlotTesting
             Axis xAxis = ChartModel.Axes.First(a => a.IsHorizontal());
             Axis yAxis = ChartModel.Axes.First(a => a.IsVertical());
             ((PolylineAnnotation) _tempAnnot).Points.Add(xAxis.InverseTransform(args.Position.X,
-                args.Position.Y, yAxis));
+                                                                                args.Position.Y,
+                                                                                yAxis));
 
             ChartModel.InvalidatePlot(false);
             args.Handled = true;
@@ -321,15 +330,16 @@ namespace OxyPlotTesting
             if (_tempAnnot == null)
                 return;
 
-            ((PolylineAnnotation) _tempAnnot).Color =
-                OxyColor.FromAColor(Convert.ToByte(uiSetLineAlphaTextBox.Text),
-                    uiSetLineColorButton.BackColor.ToOxyColor());
-            _tempAnnot.Layer = (AnnotationLayer) uiSetLayerComboBox.SelectedItem;
-            ((PolylineAnnotation) _tempAnnot).LineStyle =
-                (LineStyle) uiSetLineStyleComboBox.SelectedItem;
-            ((PolylineAnnotation) _tempAnnot).StrokeThickness =
-                Convert.ToDouble(uiSetLineThicknessTextBox.Text);
-            ((PolylineAnnotation) _tempAnnot).Text = uiSetTextTextBox.Text;
+            var annot = _tempAnnot as PolylineAnnotation;
+            if (annot != null)
+            {
+                annot.Color = OxyColor.FromAColor(byte.Parse(uiSetLineAlphaTextBox.Text),
+                                                  uiSetLineColorButton.BackColor.ToOxyColor());
+                annot.Layer = (AnnotationLayer) uiSetLayerComboBox.SelectedItem;
+                annot.LineStyle = (LineStyle) uiSetLineStyleComboBox.SelectedItem;
+                annot.StrokeThickness = double.Parse(uiSetLineThicknessTextBox.Text);
+                annot.Text = uiSetTextTextBox.Text;
+            }
 
             _tempAnnot = null;
             ChartModel.InvalidatePlot(false);
@@ -346,21 +356,21 @@ namespace OxyPlotTesting
                 Fill = HoverColor,
                 Layer = AnnotationLayer.AboveSeries
             };
-            
+
             Axis xAxis = ChartModel.Axes.First(a => a.IsHorizontal());
             Axis yAxis = ChartModel.Axes.First(a => a.IsVertical());
-            string type = (string) uiSetTypeComboBox.SelectedItem;
+            var type = (LimitType) uiSetTypeComboBox.SelectedItem;
 
-            if (type == Resources.LimitTypeNone || type == Resources.LimitTypeVertical)
+            var annot = _tempAnnot as RectangleAnnotation;
+            if (type == LimitType.None || type == LimitType.Vertical)
             {
-                ((RectangleAnnotation) _tempAnnot).MinimumX = xAxis.InverseTransform(args.Position.X);
-                ((RectangleAnnotation) _tempAnnot).MaximumX = xAxis.InverseTransform(args.Position.X);
+                annot.MinimumX = xAxis.InverseTransform(args.Position.X);
+                annot.MaximumX = xAxis.InverseTransform(args.Position.X);
             }
-
-            if (type == Resources.LimitTypeNone || type == Resources.LimitTypeHorizontal)
+            if (type == LimitType.None || type == LimitType.Horizontal)
             {
-                ((RectangleAnnotation) _tempAnnot).MinimumY = yAxis.InverseTransform(args.Position.Y);
-                ((RectangleAnnotation) _tempAnnot).MaximumY = yAxis.InverseTransform(args.Position.Y);
+                annot.MinimumY = yAxis.InverseTransform(args.Position.Y);
+                annot.MaximumY = yAxis.InverseTransform(args.Position.Y);
             }
 
             ChartModel.Annotations.Add(_tempAnnot);
@@ -375,13 +385,16 @@ namespace OxyPlotTesting
 
             Axis xAxis = ChartModel.Axes.First(a => a.IsHorizontal());
             Axis yAxis = ChartModel.Axes.First(a => a.IsVertical());
-            string type = (string) uiSetTypeComboBox.SelectedItem;
+            var type = (LimitType) uiSetTypeComboBox.SelectedItem;
 
-            if (type == Resources.LimitTypeNone || type == Resources.LimitTypeVertical)
-                ((RectangleAnnotation) _tempAnnot).MaximumX = xAxis.InverseTransform(args.Position.X);
-
-            if (type == Resources.LimitTypeNone || type == Resources.LimitTypeHorizontal)
-                ((RectangleAnnotation) _tempAnnot).MaximumY = yAxis.InverseTransform(args.Position.Y);
+            var annot = _tempAnnot as RectangleAnnotation;
+            if (annot != null)
+            {
+                if (type == LimitType.None || type == LimitType.Vertical)
+                    annot.MaximumX = xAxis.InverseTransform(args.Position.X);
+                if (type == LimitType.None || type == LimitType.Horizontal)
+                    annot.MaximumY = yAxis.InverseTransform(args.Position.Y);
+            }
 
             ChartModel.InvalidatePlot(false);
             args.Handled = true;
@@ -392,11 +405,14 @@ namespace OxyPlotTesting
             if (_tempAnnot == null)
                 return;
 
-            ((RectangleAnnotation) _tempAnnot).Fill =
-                OxyColor.FromAColor(Convert.ToByte(uiSetFillAlphaTextBox.Text),
-                    uiSetFillColorButton.BackColor.ToOxyColor());
-            _tempAnnot.Layer = (AnnotationLayer) uiSetLayerComboBox.SelectedItem;
-            ((RectangleAnnotation) _tempAnnot).Text = uiSetTextTextBox.Text;
+            var annot = _tempAnnot as RectangleAnnotation;
+            if (annot != null)
+            {
+                annot.Fill = OxyColor.FromAColor(byte.Parse(uiSetFillAlphaTextBox.Text),
+                                                 uiSetFillColorButton.BackColor.ToOxyColor());
+                annot.Layer = (AnnotationLayer) uiSetLayerComboBox.SelectedItem;
+                annot.Text = uiSetTextTextBox.Text;
+            }
 
             _tempAnnot = null;
             ChartModel.InvalidatePlot(false);
@@ -431,12 +447,17 @@ namespace OxyPlotTesting
 
             Axis xAxis = ChartModel.Axes.First(a => a.IsHorizontal());
             Axis yAxis = ChartModel.Axes.First(a => a.IsVertical());
-            Double x = ((TextAnnotation) _tempAnnot).TextPosition.X;
-            Double y = ((TextAnnotation) _tempAnnot).TextPosition.Y;
 
-            ((TextAnnotation) _tempAnnot).TextRotation =
-                Math.Atan2(args.Position.Y - yAxis.Transform(y),
-                    args.Position.X - xAxis.Transform(x)) * 180 / Math.PI;
+            var annot = _tempAnnot as TextAnnotation;
+            if (annot != null)
+            {
+                double x = annot.TextPosition.X;
+                double y = annot.TextPosition.Y;
+
+                annot.TextRotation = Math.Atan2(args.Position.Y - yAxis.Transform(y),
+                                                args.Position.X - xAxis.Transform(x)) * 180
+                                     / Math.PI;
+            }
 
             ChartModel.InvalidatePlot(false);
             args.Handled = true;
@@ -447,20 +468,26 @@ namespace OxyPlotTesting
             if (_tempAnnot == null)
                 return;
 
-            ((TextAnnotation) _tempAnnot).Background = OxyColors.Undefined;
+            var annot = _tempAnnot as TextAnnotation;
+            if (annot != null)
+            {
+                annot.Background = OxyColors.Undefined;
 
-            if (string.IsNullOrEmpty(uiSetTextTextBox.Text))
-                using (InputTextDialog d = new InputTextDialog())
+                if (string.IsNullOrEmpty(uiSetTextTextBox.Text))
                 {
-                    d.DisplayText = uiSetTextTextBox.Text;
+                    using (var d = new InputTextDialog())
+                    {
+                        d.DisplayText = uiSetTextTextBox.Text;
 
-                    if (d.ShowDialog() == DialogResult.OK)
-                        ((TextAnnotation) _tempAnnot).Text = d.DisplayText;
-                    else
-                        ChartModel.Annotations.Remove(_tempAnnot);
+                        if (d.ShowDialog() == DialogResult.OK)
+                            annot.Text = d.DisplayText;
+                        else
+                            ChartModel.Annotations.Remove(annot);
+                    }
                 }
-            else 
-                ((TextAnnotation) _tempAnnot).Text = uiSetTextTextBox.Text;
+                else
+                    annot.Text = uiSetTextTextBox.Text;
+            }
 
             _tempAnnot = null;
             ChartModel.InvalidatePlot(false);
@@ -495,8 +522,10 @@ namespace OxyPlotTesting
                     annot.MouseDown += DeleteAnnot_OnMouseDown;
             }
             else
+            {
                 foreach (Annotation annot in ChartModel.Annotations)
                     annot.MouseDown -= DeleteAnnot_OnMouseDown;
+            }
         }
 
         private void uiDrawArrowButton_OnCheckedChanged(object sender, EventArgs args)
@@ -538,7 +567,7 @@ namespace OxyPlotTesting
                 ChartModel.MouseUp -= DrawEllipse_OnMouseUp;
             }
         }
-        
+
         private void uiDrawLineButton_OnCheckedChanged(object sender, EventArgs args)
         {
             RestoreDefaultToolbarSetup();
@@ -651,8 +680,10 @@ namespace OxyPlotTesting
                     a.MouseDown += SelectAnnot_OnMouseDown;
             }
             else
+            {
                 foreach (Annotation a in ChartModel.Annotations)
                     a.MouseDown -= SelectAnnot_OnMouseDown;
+            }
         }
 
         private void uiSetFillAlphaTextBox_OnKeyDown(object sender, KeyEventArgs args)
@@ -662,21 +693,26 @@ namespace OxyPlotTesting
 
             foreach (Annotation a in ChartModel.Annotations.Where(a => a.IsSelected()))
             {
-                EllipseAnnotation ellipseAnnot = a as EllipseAnnotation;
+                var ellipseAnnot = a as EllipseAnnotation;
                 if (ellipseAnnot != null)
-                    ellipseAnnot.Fill =
-                        OxyColor.FromAColor(Convert.ToByte(uiSetFillAlphaTextBox.Text),
-                            ellipseAnnot.Fill);
+                {
+                    ellipseAnnot.Fill = OxyColor.FromAColor(byte.Parse(uiSetFillAlphaTextBox.Text),
+                                                            ellipseAnnot.Fill);
+                }
 
-                PolygonAnnotation polyAnnot = a as PolygonAnnotation;
+                var polyAnnot = a as PolygonAnnotation;
                 if (polyAnnot != null)
-                    polyAnnot.Fill = OxyColor.FromAColor(
-                        Convert.ToByte(uiSetFillAlphaTextBox.Text), polyAnnot.Fill);
+                {
+                    polyAnnot.Fill = OxyColor.FromAColor(byte.Parse(uiSetFillAlphaTextBox.Text),
+                                                         polyAnnot.Fill);
+                }
 
-                RectangleAnnotation rectAnnot = a as RectangleAnnotation;
+                var rectAnnot = a as RectangleAnnotation;
                 if (rectAnnot != null)
-                    rectAnnot.Fill = OxyColor.FromAColor(
-                        Convert.ToByte(uiSetFillAlphaTextBox.Text), rectAnnot.Fill);
+                {
+                    rectAnnot.Fill = OxyColor.FromAColor(byte.Parse(uiSetFillAlphaTextBox.Text),
+                                                         rectAnnot.Fill);
+                }
             }
 
             ChartModel.InvalidatePlot(false);
@@ -684,7 +720,7 @@ namespace OxyPlotTesting
 
         private void uiSetFillColorButton_OnClick(object sender, EventArgs args)
         {
-            using (ColorDialog d = new ColorDialog())
+            using (var d = new ColorDialog())
             {
                 d.Color = uiSetFillColorButton.BackColor;
 
@@ -694,23 +730,31 @@ namespace OxyPlotTesting
                 uiSetFillColorButton.BackColor = d.Color;
 
                 if (uiSelectAnnotButton.Checked)
+                {
                     foreach (Annotation a in ChartModel.Annotations.Where(a => a.IsSelected()))
                     {
-                        EllipseAnnotation ellipseAnnot = a as EllipseAnnotation;
+                        var ellipseAnnot = a as EllipseAnnotation;
                         if (ellipseAnnot != null)
+                        {
                             ellipseAnnot.Fill = OxyColor.FromAColor(ellipseAnnot.Fill.A,
-                                d.Color.ToOxyColor());
+                                                                    d.Color.ToOxyColor());
+                        }
 
-                        PolygonAnnotation polygonAnnot = a as PolygonAnnotation;
+                        var polygonAnnot = a as PolygonAnnotation;
                         if (polygonAnnot != null)
+                        {
                             polygonAnnot.Fill = OxyColor.FromAColor(polygonAnnot.Fill.A,
-                                d.Color.ToOxyColor());
+                                                                    d.Color.ToOxyColor());
+                        }
 
-                        RectangleAnnotation rectAnnot = a as RectangleAnnotation;
+                        var rectAnnot = a as RectangleAnnotation;
                         if (rectAnnot != null)
+                        {
                             rectAnnot.Fill = OxyColor.FromAColor(rectAnnot.Fill.A,
-                                d.Color.ToOxyColor());
+                                                                 d.Color.ToOxyColor());
+                        }
                     }
+                }
 
                 ChartModel.InvalidatePlot(false);
             }
@@ -729,7 +773,7 @@ namespace OxyPlotTesting
 
         private void uiSetLineColorButton_OnClick(object sender, EventArgs args)
         {
-            using (ColorDialog d = new ColorDialog())
+            using (var d = new ColorDialog())
             {
                 d.Color = uiSetLineColorButton.BackColor;
 
@@ -739,19 +783,25 @@ namespace OxyPlotTesting
                 uiSetLineColorButton.BackColor = d.Color;
 
                 if (uiSelectAnnotButton.Checked)
+                {
                     foreach (Annotation a in ChartModel.Annotations.Where(a => a.IsSelected()))
                     {
-                        ArrowAnnotation arrowAnnot = a as ArrowAnnotation;
+                        var arrowAnnot = a as ArrowAnnotation;
                         if (arrowAnnot != null)
+                        {
                             arrowAnnot.Color = OxyColor.FromAColor(arrowAnnot.Color.A,
-                                d.Color.ToOxyColor());
-                        
+                                                                   d.Color.ToOxyColor());
+                        }
+
                         // This will cover both Line and Polyline annotations
-                        PathAnnotation pathAnnot = a as PathAnnotation;
+                        var pathAnnot = a as PathAnnotation;
                         if (pathAnnot != null)
+                        {
                             pathAnnot.Color = OxyColor.FromAColor(pathAnnot.Color.A,
-                                d.Color.ToOxyColor());
+                                                                  d.Color.ToOxyColor());
+                        }
                     }
+                }
 
                 ChartModel.InvalidatePlot(false);
             }
@@ -764,16 +814,19 @@ namespace OxyPlotTesting
 
             foreach (Annotation a in ChartModel.Annotations.Where(a => a.IsSelected()))
             {
-                ArrowAnnotation arrowAnnot = a as ArrowAnnotation;
+                var arrowAnnot = a as ArrowAnnotation;
                 if (arrowAnnot != null)
-                    arrowAnnot.Color =
-                        OxyColor.FromAColor(Convert.ToByte(uiSetLineAlphaTextBox.Text),
-                            arrowAnnot.Color);
+                {
+                    arrowAnnot.Color = OxyColor.FromAColor(byte.Parse(uiSetLineAlphaTextBox.Text),
+                                                           arrowAnnot.Color);
+                }
 
-                PathAnnotation pathAnnot = a as PathAnnotation;
+                var pathAnnot = a as PathAnnotation;
                 if (pathAnnot != null)
-                    pathAnnot.Color = OxyColor.FromAColor(
-                        Convert.ToByte(uiSetLineAlphaTextBox.Text), pathAnnot.Color);
+                {
+                    pathAnnot.Color = OxyColor.FromAColor(byte.Parse(uiSetLineAlphaTextBox.Text),
+                                                          pathAnnot.Color);
+                }
             }
 
             ChartModel.InvalidatePlot(false);
@@ -786,11 +839,11 @@ namespace OxyPlotTesting
 
             foreach (Annotation a in ChartModel.Annotations.Where(a => a.IsSelected()))
             {
-                ArrowAnnotation arrowAnnot = a as ArrowAnnotation;
+                var arrowAnnot = a as ArrowAnnotation;
                 if (arrowAnnot != null)
                     arrowAnnot.LineStyle = (LineStyle) uiSetLineStyleComboBox.SelectedItem;
 
-                PathAnnotation pathAnnot = a as PathAnnotation;
+                var pathAnnot = a as PathAnnotation;
                 if (pathAnnot != null)
                     pathAnnot.LineStyle = (LineStyle) uiSetLineStyleComboBox.SelectedItem;
             }
@@ -798,20 +851,20 @@ namespace OxyPlotTesting
             ChartModel.InvalidatePlot(false);
         }
 
-        private void uiSetLineThicknessTextBox_OnKeyPress(object sender, KeyEventArgs args)
+        private void uiSetLineThicknessTextBox_OnKeyDown(object sender, KeyEventArgs args)
         {
             if (args.KeyCode != Keys.Enter || !uiSelectAnnotButton.Checked)
                 return;
 
             foreach (Annotation a in ChartModel.Annotations.Where(a => a.IsSelected()))
             {
-                ArrowAnnotation arrowAnnot = a as ArrowAnnotation;
+                var arrowAnnot = a as ArrowAnnotation;
                 if (arrowAnnot != null)
-                    arrowAnnot.StrokeThickness = Convert.ToDouble(uiSetLineThicknessTextBox.Text);
+                    arrowAnnot.StrokeThickness = double.Parse(uiSetLineThicknessTextBox.Text);
 
-                PathAnnotation pathAnnot = a as PathAnnotation;
+                var pathAnnot = a as PathAnnotation;
                 if (pathAnnot != null)
-                    pathAnnot.StrokeThickness = Convert.ToDouble(uiSetLineThicknessTextBox.Text);
+                    pathAnnot.StrokeThickness = double.Parse(uiSetLineThicknessTextBox.Text);
             }
 
             ChartModel.InvalidatePlot(false);

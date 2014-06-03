@@ -1,69 +1,49 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
-using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using OxyPlot;
 using OxyPlot.Annotations;
 
-using OxyPlot_Drawing_Toolbar.Properties;
-
-namespace OxyPlotTesting
+namespace OxyPlot_Drawing_Toolbar
 {
-    public sealed partial class ChartDrawingToolStrip 
+    public sealed partial class ChartDrawingToolStrip
     {
-        // Chart model to draw on. Must be set! 
-        public PlotModel ChartModel { get; set; }
-
-        #region Toolbar Items
-
-        public ToolStripButton uiSaveButton;
+        /* ToolStrip items. */
         public ToolStripButton uiPrintButton;
+        public ToolStripButton uiSaveButton;
 
-        private ToolStripButton uiSelectAnnotButton;
-        private ToolStripButton uiDeleteAnnotButton;
         private ToolStripButton uiDeleteAllAnnotsButton;
-
+        private ToolStripButton uiDeleteAnnotButton;
         private ToolStripButton uiDrawArrowButton;
+        private ToolStripButton uiDrawEllipseButton;
         private ToolStripButton uiDrawLineButton;
+        private ToolStripButton uiDrawPolygonButton;
         private ToolStripButton uiDrawPolylineButton;
         private ToolStripButton uiDrawRectangleButton;
-        private ToolStripButton uiDrawEllipseButton;
-        private ToolStripButton uiDrawPolygonButton;
         private ToolStripButton uiDrawTextButton;
-
-        private ToolStripLabel uiSetLayerLabel;
-        private ToolStripComboBox uiSetLayerComboBox;
+        private ToolStripLabel uiInfoLabel;
         private ToolStripSeparator uiLayerSeparator;
-
-        private ToolStripLabel uiSetTypeLabel;
-        private ToolStripComboBox uiSetTypeComboBox;
-        private ToolStripSeparator uiSetTypeSeparator;
-
+        private ToolStripButton uiSelectAnnotButton;
+        private ToolStripTextBox uiSetFillAlphaTextBox;
+        private ToolStripButton uiSetFillColorButton;
+        private ToolStripLabel uiSetFillLabel;
+        private ToolStripSeparator uiSetFillSeparator;
+        private ToolStripComboBox uiSetLayerComboBox;
+        private ToolStripLabel uiSetLayerLabel;
+        private ToolStripTextBox uiSetLineAlphaTextBox;
+        private ToolStripButton uiSetLineColorButton;
         private ToolStripLabel uiSetLineLabel;
+        private ToolStripSeparator uiSetLineSeparator;
         private ToolStripComboBox uiSetLineStyleComboBox;
         private ToolStripTextBox uiSetLineThicknessTextBox;
-        private ToolStripButton uiSetLineColorButton;
-        private ToolStripTextBox uiSetLineAlphaTextBox;
-        private ToolStripSeparator uiSetLineSeparator;
-
-        private ToolStripLabel uiSetFillLabel;
-        private ToolStripButton uiSetFillColorButton;
-        private ToolStripTextBox uiSetFillAlphaTextBox;
-        private ToolStripSeparator uiSetFillSeparator;
-
         private ToolStripLabel uiSetTextLabel;
-        private ToolStripTextBox uiSetTextTextBox;
         private ToolStripSeparator uiSetTextSeparator;
-
-        private ToolStripLabel uiInfoLabel;
-
-        #endregion
+        private ToolStripTextBox uiSetTextTextBox;
+        private ToolStripComboBox uiSetTypeComboBox;
+        private ToolStripLabel uiSetTypeLabel;
+        private ToolStripSeparator uiSetTypeSeparator;
 
         public ChartDrawingToolStrip()
         {
@@ -71,7 +51,14 @@ namespace OxyPlotTesting
             RestoreDefaultToolbarSetup();
         }
 
-        #region Messy ToolBar Setup Code
+        public PlotModel ChartModel { get; set; }
+
+        private enum LimitType
+        {
+            None,
+            Vertical,
+            Horizontal
+        };
 
         private void InitializeToolBar()
         {
@@ -79,39 +66,39 @@ namespace OxyPlotTesting
             uiSaveButton = new ToolStripButton
             {
                 CheckOnClick = false,
-                Image = new Bitmap(Resources.SaveIcon),  
-                ToolTipText = "Save the chart to an image.",
+                Image = new Bitmap(Icons.SaveIcon),
+                ToolTipText = ToolTips.SaveChart,
             };
 
             uiPrintButton = new ToolStripButton
             {
                 CheckOnClick = false,
-                Image = new Bitmap(Resources.PrintIcon),  
-                ToolTipText = "Print the chart.",
+                Image = new Bitmap(Icons.PrintIcon),
+                ToolTipText = ToolTips.PrintChart,
             };
 
             // Setup selection buttons -------------------------------------------------------------
             uiSelectAnnotButton = new ToolStripButton
             {
                 CheckOnClick = true,
-                Image = new Bitmap(Resources.SelectAnnotIcon),
-                ToolTipText = "Allow annotation selection for modifications.",
+                Image = new Bitmap(Icons.SelectAnnotIcon),
+                ToolTipText = ToolTips.SelectAnnot,
             };
             uiSelectAnnotButton.CheckedChanged += uiSelectAnnotButton_OnCheckedChanged;
 
             uiDeleteAnnotButton = new ToolStripButton
             {
                 CheckOnClick = true,
-                Image = new Bitmap(Resources.DeleteAnnotIcon),
-                ToolTipText = "Delete annotations clicked on."
+                Image = new Bitmap(Icons.DeleteAnnotIcon),
+                ToolTipText = ToolTips.DeleteAnnot
             };
             uiDeleteAnnotButton.CheckedChanged += uiDeleteAnnotButton_OnCheckedChanged;
 
             uiDeleteAllAnnotsButton = new ToolStripButton
             {
                 CheckOnClick = false,
-                Image = new Bitmap(Resources.DeleteAllAnnotsIcon), 
-                ToolTipText = "Delete all annotations on the chart.",
+                Image = new Bitmap(Icons.DeleteAllAnnotsIcon),
+                ToolTipText = ToolTips.DeleteAllAnnots,
             };
             uiDeleteAllAnnotsButton.Click += uiDeleteAllAnnotsButton_OnClick;
 
@@ -119,56 +106,56 @@ namespace OxyPlotTesting
             uiDrawArrowButton = new ToolStripButton
             {
                 CheckOnClick = true,
-                Image = new Bitmap(Resources.DrawArrowIcon),
-                ToolTipText = "Draw an arrow annotation on the chart."
+                Image = new Bitmap(Icons.DrawArrowIcon),
+                ToolTipText = ToolTips.DrawArrow
             };
             uiDrawArrowButton.CheckedChanged += uiDrawArrowButton_OnCheckedChanged;
 
             uiDrawLineButton = new ToolStripButton
             {
                 CheckOnClick = true,
-                Image = new Bitmap(Resources.DrawLineIcon),
-                ToolTipText = "Draw a line annotation on the chart."
+                Image = new Bitmap(Icons.DrawLineIcon),
+                ToolTipText = ToolTips.DrawLine
             };
             uiDrawLineButton.CheckedChanged += uiDrawLineButton_OnCheckedChanged;
 
             uiDrawPolylineButton = new ToolStripButton
             {
                 CheckOnClick = true,
-                Image = new Bitmap(Resources.DrawPolylineIcon),
-                ToolTipText = "Draw a multi-jointed line on the chart."
+                Image = new Bitmap(Icons.DrawPolylineIcon),
+                ToolTipText = ToolTips.DrawPolyline
             };
             uiDrawPolylineButton.CheckedChanged += uiDrawPolylineButton_OnCheckedChanged;
 
             uiDrawRectangleButton = new ToolStripButton
             {
                 CheckOnClick = true,
-                Image = new Bitmap(Resources.DrawRectangleIcon),
-                ToolTipText = "Draw a rectangle annotation on the chart."
+                Image = new Bitmap(Icons.DrawRectangleIcon),
+                ToolTipText = ToolTips.DrawRectangle
             };
             uiDrawRectangleButton.CheckedChanged += uiDrawRectangleButton_OnCheckedChanged;
 
             uiDrawEllipseButton = new ToolStripButton
             {
                 CheckOnClick = true,
-                Image = new Bitmap(Resources.DrawEllipseIcon),
-                ToolTipText = "Draw an ellipse annotation on the chart."
+                Image = new Bitmap(Icons.DrawEllipseIcon),
+                ToolTipText = ToolTips.DrawEllipse
             };
             uiDrawEllipseButton.CheckedChanged += uiDrawEllipseButton_OnCheckedChanged;
 
             uiDrawPolygonButton = new ToolStripButton
             {
                 CheckOnClick = true,
-                Image = new Bitmap(Resources.DrawPolygonIcon),
-                ToolTipText = "Draw a polygon annotation on the chart."
+                Image = new Bitmap(Icons.DrawPolygonIcon),
+                ToolTipText = ToolTips.DrawPolygon
             };
             uiDrawPolygonButton.CheckedChanged += uiDrawPolygonButton_OnCheckedChanged;
 
             uiDrawTextButton = new ToolStripButton
             {
                 CheckOnClick = true,
-                Image = new Bitmap(Resources.DrawTextIcon),
-                ToolTipText = "Draw a text annotation on the chart."
+                Image = new Bitmap(Icons.DrawTextIcon),
+                ToolTipText = ToolTips.DrawText
             };
             uiDrawTextButton.CheckedChanged += uiDrawTextButton_OnCheckedChanged;
 
@@ -183,7 +170,7 @@ namespace OxyPlotTesting
                 AutoSize = false,
                 DropDownStyle = ComboBoxStyle.DropDownList,
                 Size = new Size(90, 25),
-                ToolTipText = "Set annotation display layer."
+                ToolTipText = ToolTips.SetLayer
             };
             foreach (AnnotationLayer al in Enum.GetValues(typeof (AnnotationLayer)))
                 uiSetLayerComboBox.Items.Add(al);
@@ -196,11 +183,10 @@ namespace OxyPlotTesting
             uiSetTypeComboBox = new ToolStripComboBox
             {
                 DropDownStyle = ComboBoxStyle.DropDownList,
-                ToolTipText = "Select line or shape display type."
+                ToolTipText = ToolTips.SetType
             };
-            uiSetTypeComboBox.Items.Add(Resources.LimitTypeNone);
-            uiSetTypeComboBox.Items.Add(Resources.LimitTypeVertical);
-            uiSetTypeComboBox.Items.Add(Resources.LimitTypeHorizontal);
+            foreach (LimitType lt in Enum.GetValues(typeof (LimitType)))
+                uiSetTypeComboBox.Items.Add(lt);
 
             // Setup line adjustment items ---------------------------------------------------------
             uiSetLineLabel = new ToolStripLabel("Line:");
@@ -213,7 +199,7 @@ namespace OxyPlotTesting
                 AutoSize = false,
                 DropDownStyle = ComboBoxStyle.DropDownList,
                 Size = new Size(115, 25),
-                ToolTipText = "Set Annotation Line Style."
+                ToolTipText = ToolTips.SetLineStyle
             };
             foreach (LineStyle ls in Enum.GetValues(typeof (LineStyle)))
                 uiSetLineStyleComboBox.Items.Add(ls);
@@ -224,15 +210,15 @@ namespace OxyPlotTesting
             {
                 AutoSize = false,
                 Size = new Size(40, 25),
-                ToolTipText = "Set annotation line thickness."
+                ToolTipText = ToolTips.SetLineThickness
             };
-            uiSetLineThicknessTextBox.KeyDown += uiSetLineThicknessTextBox_OnKeyPress;
+            uiSetLineThicknessTextBox.KeyDown += uiSetLineThicknessTextBox_OnKeyDown;
 
             uiSetLineColorButton = new ToolStripButton
             {
                 AutoSize = false,
                 Size = new Size(25, 25),
-                ToolTipText = "Set annotation line colour."
+                ToolTipText = ToolTips.SetLineColor
             };
             uiSetLineColorButton.Click += uiSetLineColorButton_OnClick;
 
@@ -240,7 +226,7 @@ namespace OxyPlotTesting
             {
                 AutoSize = false,
                 Size = new Size(40, 25),
-                ToolTipText = "Set annotation line transparency (between 0 and 255)."
+                ToolTipText = ToolTips.SetLineAlpha
             };
             uiSetLineAlphaTextBox.KeyDown += uiSetLineAlphaTextBox_OnKeyDown;
 
@@ -253,7 +239,7 @@ namespace OxyPlotTesting
                 AutoSize = false,
                 BackColor = Color.SeaGreen,
                 Size = new Size(25, 25),
-                ToolTipText = "Set annotation fill colour."
+                ToolTipText = ToolTips.SetFillColor
             };
             uiSetFillColorButton.Click += uiSetFillColorButton_OnClick;
 
@@ -261,7 +247,7 @@ namespace OxyPlotTesting
             {
                 AutoSize = false,
                 Size = new Size(40, 25),
-                ToolTipText = "Set annotation fill transparency (between 0 and 255)."
+                ToolTipText = ToolTips.SetFillAlpha
             };
             uiSetFillAlphaTextBox.KeyDown += uiSetFillAlphaTextBox_OnKeyDown;
 
@@ -269,19 +255,17 @@ namespace OxyPlotTesting
             uiSetTextLabel = new ToolStripLabel("Text:");
             uiSetTextSeparator = new ToolStripSeparator();
 
-            uiSetTextTextBox = new ToolStripTextBox {ToolTipText = "Set annotation text."};
+            uiSetTextTextBox = new ToolStripTextBox {ToolTipText = ToolTips.SetText};
             uiSetTextTextBox.KeyDown += uiSetTextTextBox_OnKeyDown;
 
             // Setup information tooltip -----------------------------------------------------------
             uiInfoLabel = new ToolStripLabel
             {
-                Image = new Bitmap(Resources.InfoIcon),
+                Image = new Bitmap(Icons.InfoIcon),
                 ToolTipText =
-                    "You can use Ctrl+C to copy the chart to the clipboard!\n" +
-                    "The icons used in this toolbar are from the Fugue Icon set:" +
-                    @"http://p.yusukekamiyamane.com/"
+                    ToolTips.Info
             };
-            
+
             // Add everything to the toolbar -------------------------------------------------------
             Items.Add(uiSaveButton);
             Items.Add(uiPrintButton);
@@ -328,8 +312,6 @@ namespace OxyPlotTesting
             Items.Add(uiInfoLabel);
         }
 
-        #endregion 
-
         private void ResetItemsToggle(ToolStripButton clickedButton)
         {
             foreach (
@@ -343,29 +325,29 @@ namespace OxyPlotTesting
             uiSetLayerComboBox.SelectedIndex =
                 uiSetLayerComboBox.Items.IndexOf(AnnotationLayer.BelowSeries);
             uiSetTypeComboBox.SelectedIndex =
-                uiSetTypeComboBox.Items.IndexOf(Resources.LimitTypeNone);
+                uiSetTypeComboBox.Items.IndexOf(LimitType.None);
 
             uiSetLineStyleComboBox.SelectedIndex =
                 uiSetLineStyleComboBox.Items.IndexOf(LineStyle.Solid);
-            uiSetLineThicknessTextBox.Text = "2.00";
+            uiSetLineThicknessTextBox.Text = @"2.00";
             uiSetLineColorButton.BackColor = Color.Black;
-            uiSetLineAlphaTextBox.Text = "255";
+            uiSetLineAlphaTextBox.Text = @"255";
 
             uiSetFillColorButton.BackColor = Color.SeaGreen;
-            uiSetFillAlphaTextBox.Text = "255";
+            uiSetFillAlphaTextBox.Text = @"255";
 
             uiSetTextTextBox.Text = "";
 
             // Un-select all annotations incase they were selected
             if (ChartModel != null)
-                foreach (Annotation annot in ChartModel.Annotations)
-                    annot.Unselect();
+            {
+                foreach (Annotation a in ChartModel.Annotations)
+                    a.Unselect();
+            }
 
             // Reset the toolbar items
             HideAllToolbarItems();
         }
-
-        #region Show and Hide toolbar items (want a better way of doing this, feels messy)
 
         private void HideAllToolbarItems()
         {
@@ -507,7 +489,5 @@ namespace OxyPlotTesting
             uiSetTypeComboBox.Visible = true;
             uiSetTypeSeparator.Visible = true;
         }
-
-        #endregion
     }
 }

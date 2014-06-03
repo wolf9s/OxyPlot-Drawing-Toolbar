@@ -30,7 +30,7 @@
         {
             this.uiMainContainer = new System.Windows.Forms.ToolStripContainer();
             this.uiPlotView = new OxyPlot.WindowsForms.PlotView();
-            this.uiDrawingToolbar = new OxyPlotTesting.ChartDrawingToolStrip();
+            this.uiDrawingToolbar = new ChartDrawingToolStrip();
             this.uiMainContainer.ContentPanel.SuspendLayout();
             this.uiMainContainer.TopToolStripPanel.SuspendLayout();
             this.uiMainContainer.SuspendLayout();
@@ -96,7 +96,7 @@
 
         private System.Windows.Forms.ToolStripContainer uiMainContainer;
         private OxyPlot.WindowsForms.PlotView uiPlotView;
-        private OxyPlotTesting.ChartDrawingToolStrip uiDrawingToolbar;
+        private ChartDrawingToolStrip uiDrawingToolbar;
     }
 }
 

@@ -1,6 +1,6 @@
 ﻿using System.Windows.Forms;
 
-namespace OxyPlotTesting
+namespace OxyPlot_Drawing_Toolbar
 {
     sealed partial class ChartDrawingToolStrip : ToolStrip
     {

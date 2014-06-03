@@ -1,4 +1,4 @@
-﻿namespace OxyPlotTesting
+﻿namespace OxyPlot_Drawing_Toolbar
 {
     partial class InputTextDialog
     {
